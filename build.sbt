@@ -13,6 +13,7 @@ enablePlugins(FlywayPlugin)
 libraryDependencies ++= Seq(
   "io.lemonlabs" %% "scala-uri" % "2.0.0",
   "org.slf4j" % "slf4j-simple" % "1.6.4",
+  "org.jooq" % "jooq" % "3.13.1",
   "org.http4s" %% "http4s-circe" % http4sVersion,
   "io.circe" %% "circe-generic" % "0.13.0",
   "io.circe" %% "circe-literal" % "0.13.0",
@@ -25,7 +26,7 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.1.0" % "test"
 )
 
-flywayUrl := "jdbc:postgresql:world"
-flywayUser := "postgres"
-flywayPassword := ""
+flywayUrl := s"jdbc:postgresql:${scala.util.Properties.envOrElse("POSTGRES_DATABASE_NAME", "world")}"
+flywayUser := scala.util.Properties.envOrElse("POSTGRES_DATABASE_USER", "postgres")
+flywayPassword := scala.util.Properties.envOrElse("POSTGRES_DATABASE_PASS", "")
 flywayLocations += "db/migration"

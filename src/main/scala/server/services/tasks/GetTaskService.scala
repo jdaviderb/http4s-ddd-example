@@ -6,18 +6,14 @@ import org.http4s.dsl.io._
 import io.circe.syntax._
 import io.circe.generic.auto._
 import org.http4s.circe._
+import bounded_contexts.tasks.public.FindTaskApplicationService
 
-import modules.database.DoobieConnection
-import modules.tasks.TaskRepository
-
-class HelloService {
+class GetTaskService {
+  val taskService = FindTaskApplicationService
   val service = HttpRoutes.of[IO] {
-    case GET -> Root / "hello" =>
-      val connection = new DoobieConnection()
-      val repository = new TaskRepository(connection)
-
+    case GET -> Root / "tasks" / id =>
       for {
-        task <- repository.task
+        task <- taskService.find(id.toInt)
         response <- Ok(task.asJson)
       } yield response
   }
