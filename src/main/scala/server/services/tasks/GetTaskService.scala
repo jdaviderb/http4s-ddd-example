@@ -7,14 +7,16 @@ import io.circe.syntax._
 import io.circe.generic.auto._
 import org.http4s.circe._
 import bounded_contexts.tasks.application.FindTaskApplicationService
+import server.services.helpers.MessageError
 
 class GetTaskService {
   val taskService = FindTaskApplicationService
+
   val service = HttpRoutes.of[IO] {
     case GET -> Root / "tasks" / id =>
       for {
         task <- taskService.find(id.toInt)
-        response <- if (task == None) NotFound() else Ok(task.asJson)
+        response <- if (task == None) NotFound(MessageError("Not found").asJson) else Ok(task.asJson)
       } yield response
   }
 }

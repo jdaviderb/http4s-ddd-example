@@ -32,3 +32,6 @@ flywayPassword := scala.util.Properties.envOrElse("POSTGRES_DATABASE_PASS", "")
 flywayLocations += "db/migration"
 coverageEnabled := true
 coverageHighlighting := true
+Test / parallelExecution := false
+
+
