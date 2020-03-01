@@ -14,7 +14,7 @@ class GetTaskService {
     case GET -> Root / "tasks" / id =>
       for {
         task <- taskService.find(id.toInt)
-        response <- Ok(task.asJson)
+        response <- if (task == None) NotFound() else Ok(task.asJson)
       } yield response
   }
 }

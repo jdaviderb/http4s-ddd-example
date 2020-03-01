@@ -6,9 +6,12 @@ import org.http4s.implicits._
 import cats.effect._
 
 object Server extends IOApp {
+  val port = 8080
+  val host = "localhost"
+
   def run(args: List[String]): IO[ExitCode] = {
     BlazeServerBuilder[IO]
-      .bindHttp(8080, "localhost")
+      .bindHttp(port, host)
       .withHttpApp(Services.all.orNotFound)
       .serve
       .compile
