@@ -1,14 +1,10 @@
 package bounded_context.tasks
 
-import collection.mutable.Stack
 import org.scalatest._
-import bounded_contexts.tasks.TaskRepository
 import bounded_contexts.share.infrastructure.DoobieConnection
-import bounded_contexts.tasks.TaskEntity
-
-
-import doobie._
-import doobie.implicits._
+import bounded_contexts.tasks.domain.TaskEntity
+import bounded_contexts.tasks.infrestucture.TaskRepository
+import tests_helpers.TestsHelpers
 
 class TaskServiceTest extends FunSpec {
   val connection = new DoobieConnection()
@@ -16,7 +12,7 @@ class TaskServiceTest extends FunSpec {
 
   describe("#find") {
     it("returns a task") {
-      sql"truncate tasks".update.run.transact(connection.xa).unsafeRunSync()
+      TestsHelpers.truncateTable("tasks")
       val task = TaskEntity(id = None, title= "test", done=true)
       val newTask = repository.create(task).unsafeRunSync()
 
@@ -26,7 +22,7 @@ class TaskServiceTest extends FunSpec {
 
   describe("#update") {
     it("updates a task") {
-      sql"truncate tasks".update.run.transact(connection.xa).unsafeRunSync()
+      TestsHelpers.truncateTable("tasks")
       val task = TaskEntity(id = None, title= "test", done=true)
       val newTask = repository.create(task).unsafeRunSync()
       val taskFinder = repository.find(newTask.id.get)
@@ -39,7 +35,7 @@ class TaskServiceTest extends FunSpec {
 
   describe("#delete") {
     it("delete a task") {
-      sql"truncate tasks".update.run.transact(connection.xa).unsafeRunSync()
+      TestsHelpers.truncateTable("tasks")
       val task = TaskEntity(id = None, title= "test", done=true)
       val newTask = repository.create(task).unsafeRunSync()
       val taskFinder = repository.find(newTask.id.get)
@@ -53,8 +49,7 @@ class TaskServiceTest extends FunSpec {
 
   describe("#create") {
     it("creates a task") {
-      // clear database
-      sql"truncate tasks".update.run.transact(connection.xa).unsafeRunSync()
+      TestsHelpers.truncateTable("tasks")
 
       assert(repository.all.unsafeRunSync().length == 0)
       val task = TaskEntity(id = None, title= "test", done=true)

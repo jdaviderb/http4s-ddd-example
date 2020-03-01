@@ -6,7 +6,7 @@ import org.http4s.dsl.io._
 import io.circe.syntax._
 import io.circe.generic.auto._
 import org.http4s.circe._
-import bounded_contexts.tasks.public.FindTaskApplicationService
+import bounded_contexts.tasks.application.FindTaskApplicationService
 
 class GetTaskService {
   val taskService = FindTaskApplicationService

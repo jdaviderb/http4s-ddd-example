@@ -1,5 +1,6 @@
 package server.services.tasks
 
+import bounded_contexts.tasks.domain.TaskEntity
 import cats.effect.IO
 import org.http4s.HttpRoutes
 import org.http4s.dsl.io._
@@ -7,9 +8,8 @@ import org.http4s.circe.jsonOf
 import io.circe.syntax._
 import io.circe.generic.auto._
 import org.http4s.circe._
-import bounded_contexts.tasks.TaskEntity
-import bounded_contexts.tasks.public.UpdateTaskApplicationService
-import bounded_contexts.tasks.public.FindTaskApplicationService
+import bounded_contexts.tasks.application.UpdateTaskApplicationService
+import bounded_contexts.tasks.application.FindTaskApplicationService
 
 class UpdateTaskService {
   implicit val decoder = jsonOf[IO, TaskEntity]

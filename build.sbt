@@ -30,3 +30,5 @@ flywayUrl := s"jdbc:postgresql:${scala.util.Properties.envOrElse("POSTGRES_DATAB
 flywayUser := scala.util.Properties.envOrElse("POSTGRES_DATABASE_USER", "postgres")
 flywayPassword := scala.util.Properties.envOrElse("POSTGRES_DATABASE_PASS", "")
 flywayLocations += "db/migration"
+coverageEnabled := true
+coverageHighlighting := true

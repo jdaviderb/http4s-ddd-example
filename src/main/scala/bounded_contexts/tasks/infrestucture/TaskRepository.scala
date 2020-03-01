@@ -1,16 +1,17 @@
-package bounded_contexts.tasks
+package bounded_contexts.tasks.infrestucture
 
-import cats.effect.IO
 import bounded_contexts.share.infrastructure.DoobieConnection
+import bounded_contexts.tasks.domain.{TaskEntity, TaskRepositoryContract}
+import cats.effect.IO
 import doobie._
 import doobie.implicits._
-import scala.util.chaining._
-
 import org.jooq.SQLDialect
 import org.jooq.impl.DSL
 import org.jooq.impl.DSL._
 
-class TaskRepository(connection: DoobieConnection) {
+import scala.util.chaining._
+
+class TaskRepository(connection: DoobieConnection) extends TaskRepositoryContract[IO] {
   val queryBuilder =  DSL.using(SQLDialect.POSTGRES)
 
   def find(id: Int): IO[Option[TaskEntity]] =
@@ -24,7 +25,6 @@ class TaskRepository(connection: DoobieConnection) {
       .query[TaskEntity]
       .option
       .transact(connection.xa)
-
 
   def update(task: TaskEntity): IO[TaskEntity] =
     queryBuilder
