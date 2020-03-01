@@ -11,8 +11,9 @@ import org.jooq.impl.DSL._
 
 import scala.util.chaining._
 
-class TaskRepository(connection: DoobieConnection) extends TaskRepositoryContract[IO] {
-  val queryBuilder =  DSL.using(SQLDialect.POSTGRES)
+class TaskRepository(connection: DoobieConnection)
+    extends TaskRepositoryContract[IO] {
+  val queryBuilder = DSL.using(SQLDialect.POSTGRES)
 
   def find(id: Int): IO[Option[TaskEntity]] =
     queryBuilder
@@ -36,7 +37,9 @@ class TaskRepository(connection: DoobieConnection) extends TaskRepositoryContrac
       .update
       .run
       .transact(connection.xa)
-      .map { _ => task.copy() }
+      .map { _ =>
+        task.copy()
+      }
 
   def create(task: TaskEntity): IO[TaskEntity] =
     queryBuilder
@@ -47,7 +50,9 @@ class TaskRepository(connection: DoobieConnection) extends TaskRepositoryContrac
       .update
       .withUniqueGeneratedKeys[Int]("id")
       .transact(connection.xa)
-      .map { id => task.copy(id = Some(id)) }
+      .map { id =>
+        task.copy(id = Some(id))
+      }
 
   def delete(id: Int): IO[Unit] =
     queryBuilder
@@ -58,15 +63,17 @@ class TaskRepository(connection: DoobieConnection) extends TaskRepositoryContrac
       .update
       .run
       .transact(connection.xa)
-      .map { _ => () }
+      .map { _ =>
+        ()
+      }
 
   def all: IO[List[TaskEntity]] =
     queryBuilder
-        .select(field("id"), field("title"), field("done"))
-        .from(table("tasks"))
-        .getSQL
-        .pipe(Fragment.const(_))
-        .query[TaskEntity]
-        .to[List]
-        .transact(connection.xa)
+      .select(field("id"), field("title"), field("done"))
+      .from(table("tasks"))
+      .getSQL
+      .pipe(Fragment.const(_))
+      .query[TaskEntity]
+      .to[List]
+      .transact(connection.xa)
 }

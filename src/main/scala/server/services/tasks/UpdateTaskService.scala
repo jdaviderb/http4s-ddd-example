@@ -18,7 +18,9 @@ class UpdateTaskService {
     case req @ PUT -> Root / "tasks" / id =>
       for {
         task <- FindTaskApplicationService.find(id.toInt)
-        taskRequest <- req.as[TaskEntity].map { x => x.copy(id = task.get.id) }
+        taskRequest <- req.as[TaskEntity].map { x =>
+          x.copy(id = task.get.id)
+        }
         taskUpdated <- UpdateTaskApplicationService.update(taskRequest)
         response <- Ok(taskUpdated.asJson)
       } yield response

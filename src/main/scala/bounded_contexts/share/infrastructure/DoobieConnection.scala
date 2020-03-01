@@ -15,4 +15,3 @@ class DoobieConnection {
     scala.sys.env("POSTGRES_DATABASE_PASS")
   )
 }
-

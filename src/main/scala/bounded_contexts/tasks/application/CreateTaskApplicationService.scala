@@ -11,4 +11,3 @@ object CreateTaskApplicationService {
 
   def create(task: TaskEntity): IO[TaskEntity] = taskRepository.create(task)
 }
-

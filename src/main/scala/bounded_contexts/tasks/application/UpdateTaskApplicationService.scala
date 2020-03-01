@@ -12,4 +12,3 @@ object UpdateTaskApplicationService {
 
   def update(task: TaskEntity): IO[TaskEntity] = taskRepository.update(task)
 }
-
