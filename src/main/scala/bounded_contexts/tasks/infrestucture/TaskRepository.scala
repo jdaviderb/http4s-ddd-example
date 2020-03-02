@@ -31,6 +31,7 @@ class TaskRepository(connection: DoobieConnection)
     queryBuilder
       .update(table("tasks"))
       .set(field("title"), task.title)
+      .set(field("done"), task.done)
       .where(field("id").equal(task.id.get))
       .getSQL(true)
       .pipe(Fragment.const(_))
