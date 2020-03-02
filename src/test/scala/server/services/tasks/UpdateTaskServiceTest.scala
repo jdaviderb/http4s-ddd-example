@@ -3,6 +3,7 @@ package server.services.tasks
 import org.scalatest._
 import org.http4s._
 import cats.effect.IO
+import io.circe.syntax._
 import io.circe.generic.auto._
 import bounded_contexts.tasks.domain.TaskEntity
 import bounded_contexts.tasks.application.CreateTaskApplicationService
