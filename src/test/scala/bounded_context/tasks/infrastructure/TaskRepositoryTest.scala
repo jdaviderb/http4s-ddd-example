@@ -1,12 +1,12 @@
-package bounded_context.tasks
+package bounded_context.tasks.infrastructure
 
-import org.scalatest._
 import bounded_contexts.share.infrastructure.DoobieConnection
 import bounded_contexts.tasks.domain.TaskEntity
 import bounded_contexts.tasks.infrestucture.TaskRepository
+import org.scalatest._
 import tests_helpers.TestsHelpers
 
-class TaskServiceTest extends FunSpec {
+class TaskRepositoryTest extends FunSpec {
   val connection = new DoobieConnection()
   val repository = new TaskRepository(connection)
 

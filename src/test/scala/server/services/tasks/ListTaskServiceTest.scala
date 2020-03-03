@@ -1,5 +1,6 @@
 package server.services.tasks
 
+import server.services.Services
 import org.scalatest._
 import org.http4s._
 import cats.effect.IO
@@ -10,14 +11,14 @@ import bounded_contexts.tasks.application.CreateTaskApplicationService
 import tests_helpers.TestsHelpers
 
 class ListTaskServiceTest extends FunSpec {
-  val ListTaskService = new ListTaskService()
+  val services = Services.all
 
   describe("/tasks") {
     it("responds 200") {
       TestsHelpers.truncateTable("tasks")
 
       TestsHelpers.checkRequestAsJson(
-        ListTaskService.service,
+        services,
         Request[IO](Method.GET, Uri(path = "/tasks"))
       ) { (status, _) => assert(status == Status.Ok) }
     }
@@ -27,7 +28,7 @@ class ListTaskServiceTest extends FunSpec {
       val expectedResponse: List[TaskEntity] = List()
 
       TestsHelpers.checkRequestAsJson(
-        ListTaskService.service,
+        services,
         Request[IO](Method.GET, Uri(path = "/tasks"))
       ) { (status, body) =>
         assert(status == Status.Ok)
@@ -41,7 +42,7 @@ class ListTaskServiceTest extends FunSpec {
       val expectedResponse = List(task)
 
       TestsHelpers.checkRequestAsJson(
-        ListTaskService.service,
+        services,
         Request[IO](Method.GET, Uri(path = "/tasks"))
       ) { (status, body) =>
         assert(status == Status.Ok)

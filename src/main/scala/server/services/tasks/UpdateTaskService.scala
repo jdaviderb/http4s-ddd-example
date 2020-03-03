@@ -10,7 +10,7 @@ import io.circe.generic.auto._
 import org.http4s.circe._
 import bounded_contexts.tasks.application.UpdateTaskApplicationService
 import bounded_contexts.tasks.application.FindTaskApplicationService
-import server.services.helpers.MessageError
+import server.services.helpers.Message
 
 class UpdateTaskService {
   implicit val decoder = jsonOf[IO, TaskEntity]
@@ -19,7 +19,7 @@ class UpdateTaskService {
     case req @ PUT -> Root / "tasks" / id =>
       FindTaskApplicationService.find(id.toInt).flatMap { taskOption =>
         taskOption match  {
-          case None => NotFound(MessageError("Not found").asJson)
+          case None => NotFound(Message("Not found").asJson)
           case Some(taskValue) => updateTask(req, taskValue)
         }
       }

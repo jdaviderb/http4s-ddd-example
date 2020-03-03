@@ -7,7 +7,7 @@ import io.circe.generic.auto._
 import io.circe.syntax._
 import org.http4s.circe._
 import bounded_contexts.tasks.application.DeleteTaskApplicationService
-import server.services.helpers.MessageError
+import server.services.helpers.Message
 
 class DeleteTaskService {
   val taskService = DeleteTaskApplicationService
@@ -15,7 +15,7 @@ class DeleteTaskService {
     case DELETE -> Root / "tasks" / id =>
       for {
         _ <- taskService.delete(id.toInt)
-        response <- Ok(MessageError("ok").asJson)
+        response <- Ok(Message("ok").asJson)
       } yield response
   }
 }

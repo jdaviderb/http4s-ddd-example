@@ -4,6 +4,7 @@ import cats.implicits._
 import org.http4s.server.blaze._
 import org.http4s.implicits._
 import cats.effect._
+import server.services.Services
 
 object Server extends IOApp {
   val port = 8080

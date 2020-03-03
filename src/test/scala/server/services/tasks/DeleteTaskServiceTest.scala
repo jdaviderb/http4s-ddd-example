@@ -1,5 +1,6 @@
 package server.services.tasks
 
+import server.services.Services
 import org.scalatest._
 import org.http4s._
 import cats.effect.IO
@@ -10,7 +11,7 @@ import bounded_contexts.tasks.application.FindTaskApplicationService
 import tests_helpers.TestsHelpers
 
 class DeleteTaskServiceTest extends FunSpec {
-  val deleteTaskService = new DeleteTaskService().service
+  val services = Services.all
 
   describe("/tasks/:id") {
     it("deletes a task") {
@@ -18,7 +19,7 @@ class DeleteTaskServiceTest extends FunSpec {
       val task = CreateTaskApplicationService.create(TaskEntity(None, "test", false)).unsafeRunSync()
 
       TestsHelpers.checkRequestAsJson(
-        deleteTaskService,
+        services,
         Request[IO](Method.DELETE, Uri(path = s"/tasks/${task.id.get}"))
       ) { (status, _) =>
         val taskDeleted = FindTaskApplicationService.find(task.id.get).unsafeRunSync()
