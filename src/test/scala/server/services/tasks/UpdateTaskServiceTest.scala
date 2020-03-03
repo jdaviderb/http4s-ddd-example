@@ -1,5 +1,6 @@
 package server.services.tasks
 
+import bounded_contexts.share.domain.UserEntity
 import server.services.Services
 import org.scalatest._
 import org.http4s._
@@ -15,14 +16,13 @@ import io.circe.literal._
 
 class UpdateTaskServiceTest extends FunSpec {
   val services = Services.all
+  val authHeader = TestsHelpers.AuthHeaders(UserEntity("Jorge Hernandez"))
 
   describe("/tasks/:id") {
     it("responds 404") {
-      TestsHelpers.truncateTable("tasks")
-
       TestsHelpers.checkRequestAsJson(
         services,
-        Request[IO](Method.PUT, Uri(path = "/tasks/0"))
+        Request[IO](Method.PUT, Uri(path = "/tasks/0"), HttpVersion.`HTTP/1.0`, Headers.of(authHeader))
       ) { (status, _) => assert(status == Status.NotFound) }
     }
 
@@ -30,11 +30,16 @@ class UpdateTaskServiceTest extends FunSpec {
       TestsHelpers.truncateTable("tasks")
       val task = CreateTaskApplicationService.create(TaskEntity(None, "test", false)).unsafeRunSync()
       val body = json"""{"title":"updated", "done": true}"""
-      val request =  Request[IO](Method.PUT, Uri(path = s"/tasks/${task.id.get}")).withEntity(body)
+      val request = Request[IO](
+        Method.PUT,
+        Uri(path = s"/tasks/${task.id.get}"),
+        HttpVersion.`HTTP/1.0`,
+        Headers.of(authHeader)
+      )
 
       TestsHelpers.checkRequestAsJson(
         services,
-        request
+        request.withEntity(body)
       ) { (status, body) =>
         val updatedTask = FindTaskApplicationService.find(task.id.get).unsafeRunSync().get
         assert(updatedTask.title == "updated")

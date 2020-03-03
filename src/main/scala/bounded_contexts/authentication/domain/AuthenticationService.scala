@@ -7,7 +7,6 @@ import cats.effect.IO
 import io.circe.syntax._
 import io.circe.generic.auto._
 import org.http4s.circe.jsonOf
-
 import scala.util.{Failure, Success}
 
 object AuthenticationService {
@@ -20,7 +19,7 @@ object AuthenticationService {
 
   def decodeToken(token: String, key: String = defaultKey): Option[UserEntity] =
     JwtCirce.decodeJson(token, key, Seq(JwtAlgorithm.HS256)) match {
-      case Success(v) => v.as[UserEntity].toOption
+      case Success(taskAsJson) => taskAsJson.as[UserEntity].toOption
       case Failure(_) => None
     }
 }
