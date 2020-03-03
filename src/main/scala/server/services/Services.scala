@@ -1,6 +1,7 @@
 package server.services
 
 import tasks._
+import authentication._
 import cats.implicits._
 
 object Services {
@@ -9,5 +10,6 @@ object Services {
     new GetTaskService().service <+>
     new ListTaskService().service <+>
     new DeleteTaskService().service <+>
-    new UpdateTaskService().service
+    new UpdateTaskService().service <+>
+    new AuthenticateService().service
 }

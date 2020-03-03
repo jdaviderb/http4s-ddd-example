@@ -12,6 +12,8 @@ enablePlugins(FlywayPlugin)
 
 libraryDependencies ++= Seq(
   "io.lemonlabs" %% "scala-uri" % "2.0.0",
+  "com.pauldijou" %% "jwt-core" % "4.2.0",
+  "com.pauldijou" %% "jwt-circe" % "4.2.0",
   "org.slf4j" % "slf4j-simple" % "1.6.4",
   "org.jooq" % "jooq" % "3.13.1",
   "org.http4s" %% "http4s-circe" % http4sVersion,

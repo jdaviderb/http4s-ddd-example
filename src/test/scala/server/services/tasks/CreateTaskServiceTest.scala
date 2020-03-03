@@ -13,7 +13,7 @@ import tests_helpers.TestsHelpers
 class CreateTaskServiceTest extends FunSpec {
   val services = Services.all
 
-  describe("/tasks/:id") {
+  describe("/tasks") {
     it("creates a task") {
       TestsHelpers.truncateTable("tasks")
       val body = json"""{"title":"new", "done": true}"""
@@ -27,7 +27,7 @@ class CreateTaskServiceTest extends FunSpec {
         assert(task.title == "new")
         assert(task.done)
         assert(task.asJson == body)
-        assert(status == Status.Ok)
+        assert(status == Status.Created)
       }
     }
   }

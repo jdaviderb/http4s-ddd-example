@@ -17,7 +17,7 @@ class CreateTaskService {
       for {
         taskRequest <- req.as[TaskEntity]
         task <- taskService.create(taskRequest)
-        response <- Ok(task.asJson)
+        response <- Created(task.asJson)
       } yield response
   }
 }
