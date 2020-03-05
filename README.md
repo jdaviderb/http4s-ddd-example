@@ -12,15 +12,15 @@ in this project I applied the lessons learned in [@codelyTv](https://github.com/
 
 **envs:**
 ```bash
-  API_POSTGREST_USER=localhost
-  API_POSTGREST_USER=XXX
-  API_POSTGREST_PASS=XXX
+  API_POSTGRES_DATABASE=XXX
+  API_POSTGRES_USER=XXX
+  API_POSTGRES_PASS=XXX
   API_JWT_SECRET=XXXXXXX
 
   # tests suite envs
-  API_POSTGREST_TEST_USER=localhost
-  API_POSTGREST_TEST_USER=XXX
-  API_POSTGREST_TEST_PASS=XXX
+  API_POSTGRES_TEST_DATABASE=XXX
+  API_POSTGRES_TEST_USER=XXX
+  API_POSTGRES_TEST_PASS=XXX
 ```
 ##  📜 Endpoints
 
