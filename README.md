@@ -1,10 +1,13 @@
 in this project I applied the lessons learned in [@codelyTv](https://github.com/CodelyTV), this project is a simple API with authorization using JWT
 
+[![Build Status](https://travis-ci.com/jdaviderb/http4s-ddd-example.svg?branch=master)](https://travis-ci.com/jdaviderb/http4s-ddd-example)
+
 ## 🐣 Setup
 
 * `sbt flyWayMigrate` — run database migrations
 * `SCALA_ENV=test sbt flyWayMigrate` — run database migrations for tests
 * `sbt run` — run http4s server
+* `sbt test` — test suite
 
 **envs:**
 ```bash
