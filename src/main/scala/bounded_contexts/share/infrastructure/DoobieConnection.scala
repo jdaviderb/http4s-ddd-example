@@ -4,14 +4,15 @@ import doobie._
 import doobie.implicits._
 import cats.effect.IO
 import scala.concurrent.ExecutionContext
+import conf.Settings
 
 class DoobieConnection {
   implicit val cs = IO.contextShift(ExecutionContext.global)
 
   val xa = Transactor.fromDriverManager[IO](
     "org.postgresql.Driver",
-    s"jdbc:postgresql:${scala.sys.env("POSTGRES_DATABASE_NAME")}",
-    scala.sys.env("POSTGRES_DATABASE_USER"),
-    scala.sys.env("POSTGRES_DATABASE_PASS")
+    s"jdbc:postgresql:${Settings.postgresDatabase}",
+    Settings.postgresUser,
+    Settings.postgresPass
   )
 }
