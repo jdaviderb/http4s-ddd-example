@@ -1,4 +1,4 @@
-in this project I applied the lessons learned in @codelytv, this project is a simple API with authorization using JWT
+in this project I applied the lessons learned in [@codelyTv](https://github.com/CodelyTV), this project is a simple API with authorization using JWT
 
 ## 🐣 Setup
 
