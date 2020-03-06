@@ -8,7 +8,7 @@ import server.services.Services
 
 object Server extends IOApp {
   val port = 8080
-  val host = "localhost"
+  val host = "0.0.0.0"
 
   def run(args: List[String]): IO[ExitCode] = {
     BlazeServerBuilder[IO]
