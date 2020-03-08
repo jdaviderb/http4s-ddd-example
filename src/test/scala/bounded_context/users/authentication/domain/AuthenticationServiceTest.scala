@@ -20,11 +20,11 @@ class AuthenticationServiceTest extends FunSpec {
   describe("#decodeToken") {
     it("returns a user") {
       val user = UserEntity("Jorge Hernandez")
-      AuthenticationService.decodeToken(expectedToken, jwtSecret).get == user
+      assert(AuthenticationService.decodeToken(expectedToken, jwtSecret).get == user)
     }
 
     it("returns None") {
-      AuthenticationService.decodeToken("invalid", jwtSecret) == None
+      assert(AuthenticationService.decodeToken("invalid", jwtSecret) == None)
     }
   }
 }
