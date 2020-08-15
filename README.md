@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/jdaviderb/http4s-ddd-example.svg?branch=master)](https://travis-ci.com/jdaviderb/http4s-ddd-example) [![Coverage Status](https://coveralls.io/repos/github/jdaviderb/http4s-ddd-example/badge.svg)](https://coveralls.io/github/jdaviderb/http4s-ddd-example) [![Maintainability](https://api.codeclimate.com/v1/badges/155a85357b745db2e5eb/maintainability)](https://codeclimate.com/github/jdaviderb/http4s-ddd-example/maintainability)
 
-in this project I applied the lessons learned in [@codelyTv](https://github.com/CodelyTV), this project is a simple API with authorization using JWT
+in this project I applied the lessons learned from [@codelyTv](https://github.com/CodelyTV), this project is a simple API with authorization using JWT
 
 
 ## 🐣 Setup
